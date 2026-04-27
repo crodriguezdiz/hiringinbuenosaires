@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Hiring in Buenos Aires</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --green:      #02A95C;
+      --green-dark: #027a42;
+      --green-deep: #015c31;
+      --green-soft: #e6f7ef;
+      --green-mid:  #c8edd9;
+      --navy:       #0b1e3d;
+      --white:      #ffffff;
+      --off-white:  #f7f9f8;
+      --gray-100:   #f3f4f6;
+      --gray-200:   #e5e7eb;
+      --gray-400:   #9ca3af;
+      --gray-600:   #6b7280;
+      --text:       #111827;
+      --r-xl:       28px;
+      --r-lg:       20px;
+      --r-md:       14px;
+      --sh-xl:      0 24px 60px rgba(15,23,42,0.14);
+      --sh-lg:      0 14px 36px rgba(15,23,42,0.1);
+      --sh-sm:      0 4px 14px rgba(15,23,42,0.07);
+      font-family: 'Nunito', system-ui, sans-serif;
+    }
+    body { color: var(--text); line-height: 1.6; background: var(--white); }
+
+    /* HERO */
+    .hero { position: relative; width: 100%; overflow: hidden; background: var(--navy); }
+    .hero svg { display: block; width: 100%; height: auto; max-height: 420px; }
+    .hero-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem 1.5rem 5rem; text-align: center;
+    }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(10px); color: rgba(255,255,255,.92);
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      padding: .4rem 1.1rem; border-radius: 999px; margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 400; color: #fff;
+      line-height: 1.08; letter-spacing: -.02em;
+      text-shadow: 0 4px 40px rgba(0,0,0,.4);
+    }
+    .hero-title em { font-style: italic; color: var(--green); }
+    .hero-sub { margin-top: 1rem; color: rgba(255,255,255,.72); font-size: clamp(.9rem,1.6vw,1.05rem); font-weight: 500; }
+    .hero-bar { background: var(--green); padding: 1.1rem 1.5rem; text-align: center; }
+    .hero-bar p { color: #fff; font-size: 1rem; font-weight: 700; }
+
+    /* INDEX */
+    .index-section {
+      background: linear-gradient(160deg, #013d22 0%, var(--green-dark) 60%, #02c469 100%);
+      padding: 3.5rem 1.5rem 4rem;
+    }
+    .index-inner { max-width: 1160px; margin: 0 auto; }
+    .index-group { margin-bottom: 3rem; }
+    .index-group:last-child { margin-bottom: 0; }
+    .index-group-label { font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: .5rem; }
+    .index-group-title { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.5rem,2.5vw,1.9rem); color: #fff; margin-bottom: 1.5rem; font-weight: 400; }
+    .card-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+    @media (max-width:900px) { .card-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:600px) { .card-grid { grid-template-columns: 1fr; } }
+    .nav-card {
+      display: block; text-decoration: none;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--r-lg); padding: 1.6rem 1.5rem 2.6rem;
+      backdrop-filter: blur(12px);
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+      position: relative; overflow: hidden; color: #fff;
+    }
+    .nav-card::before {
+      content:''; position: absolute; inset: 0;
+      background: linear-gradient(135deg,
+        rgba(117,201,245,.15) 0%, rgba(117,201,245,.15) 33%,
+        rgba(255,255,255,.2) 33%, rgba(255,255,255,.2) 66%,
+        rgba(117,201,245,.15) 66%, rgba(117,201,245,.15) 100%);
+      opacity: 0; transition: opacity .4s ease; pointer-events: none;
+    }
+    .nav-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.16); box-shadow: 0 16px 40px rgba(0,0,0,.22); }
+    .nav-card:hover::before { opacity: 1; }
+    .nav-card-tag { font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: .6rem; }
+    .nav-card-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: .5rem; line-height: 1.3; }
+    .nav-card-desc { font-size: .82rem; color: rgba(255,255,255,.78); line-height: 1.5; }
+    .nav-card-arrow {
+      position: absolute; bottom: 1.2rem; right: 1.2rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; transition: background .2s ease, transform .2s ease;
+    }
+    .nav-card:hover .nav-card-arrow { background: var(--green); transform: translateX(2px); }
+
+    /* SECTIONS */
+    .section { padding: 4rem 1.5rem 5rem; border-top: 1px solid var(--gray-200); }
+    .section:nth-child(even) { background: var(--off-white); }
+    .section:nth-child(odd)  { background: var(--white); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--green-soft); color: var(--green-dark);
+      font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      padding: .35rem .9rem; border-radius: 999px; margin-bottom: .9rem;
+    }
+    .section-heading {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 400;
+      line-height: 1.15; letter-spacing: -.02em; color: var(--text); margin-bottom: .6rem;
+    }
+    .section-lead { font-size: 1rem; color: var(--gray-600); max-width: 600px; margin-bottom: 2.2rem; }
+
+    /* TABS */
+    .tab-bar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .tab-btn {
+      font-family: 'Nunito', sans-serif; font-size: .85rem; font-weight: 700;
+      color: var(--gray-600); background: var(--white);
+      border: 1.5px solid var(--gray-200); border-radius: 999px;
+      padding: .5rem 1.2rem; cursor: pointer; transition: all .18s ease;
+    }
+    .tab-btn:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-soft); }
+    .tab-btn.active { background: var(--green); color: #fff; border-color: var(--green); box-shadow: 0 0 0 3px rgba(2,169,92,.18); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeUp .22s ease-out; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* CARDS */
+    .white-card { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--r-xl); padding: 2rem; box-shadow: var(--sh-lg); }
+    .two-col { display: grid; gap: 1.2rem; }
+    @media (min-width:700px) { .two-col { grid-template-columns: repeat(2,1fr); } }
+    .info-card { background: var(--off-white); border: 1px solid var(--gray-200); border-radius: var(--r-lg); padding: 1.3rem 1.4rem; transition: box-shadow .2s ease, transform .2s ease; }
+    .info-card:hover { box-shadow: var(--sh-lg); transform: translateY(-2px); }
+    .info-card-title { font-size: .88rem; font-weight: 800; color: var(--green-dark); margin-bottom: .6rem; }
+    .info-card ul { padding-left: 1.1rem; }
+    .info-card li { font-size: .88rem; color: var(--gray-600); margin-bottom: .35rem; line-height: 1.5; }
+    .info-card li strong { color: var(--text); }
+
+    /* HUB SHELL */
+    .hub-shell { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--r-xl); padding: 2rem; box-shadow: var(--sh-lg); }
+    .hub-shell-label { font-size: .82rem; font-weight: 700; color: var(--gray-600); margin-bottom: 1rem; }
+    .hub-tab-bar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+    .hub-tab-btn {
+      font-family: 'Nunito', sans-serif; font-size: .84rem; font-weight: 700;
+      color: var(--gray-600); background: var(--gray-100);
+      border: 1.5px solid var(--gray-200); border-radius: 999px;
+      padding: .5rem 1.1rem; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem;
+      transition: all .18s ease;
+    }
+    .hub-tab-btn:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-soft); }
+    .hub-tab-btn.active { background: var(--green); color: #fff; border-color: var(--green); box-shadow: 0 0 0 3px rgba(2,169,92,.18); }
+    .hub-panel { display: none; }
+    .hub-panel.active { display: block; animation: fadeUp .22s ease-out; }
+    .hub-detail-box {
+      background: var(--off-white); border: 1px solid var(--gray-200);
+      border-radius: var(--r-lg); padding: 1.8rem; position: relative; overflow: hidden;
+    }
+    .hub-detail-box::after {
+      content:''; position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(2,169,92,.08) 0%,transparent 70%);
+      pointer-events: none;
+    }
+    .hub-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .hub-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.5rem; font-weight: 400; display: flex; align-items: center; gap: .5rem; margin-bottom: .2rem; }
+    .hub-sub { font-size: .85rem; color: var(--gray-600); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .pill { font-size: .72rem; font-weight: 700; padding: .28rem .75rem; border-radius: 999px; border: 1.5px solid var(--gray-200); color: var(--gray-600); background: var(--white); }
+    .pill.accent { border-color: var(--green); color: var(--green-dark); background: var(--green-soft); }
+    .pill.good   { border-color: #86efac; color: #166534; background: #f0fdf4; }
+    .pill.warn   { border-color: #fca5a5; color: #991b1b; background: #fef2f2; }
+    .metrics-row { display: grid; gap: .8rem; margin-bottom: 1.5rem; }
+    @media (min-width:600px) { .metrics-row { grid-template-columns: repeat(3,1fr); } }
+    .metric-tile { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--r-md); padding: .8rem 1rem; }
+    .metric-top { display: flex; justify-content: space-between; font-size: .78rem; margin-bottom: .45rem; color: var(--gray-600); }
+    .metric-top strong { color: var(--text); font-weight: 700; }
+    .metric-track { height: 6px; border-radius: 999px; background: var(--gray-200); overflow: hidden; }
+    .metric-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg,#bbf7d0,var(--green)); }
+    .metric-fill[data-level="5"] { width: 100%; }
+    .metric-fill[data-level="4"] { width: 80%; }
+    .metric-fill[data-level="3"] { width: 60%; }
+    .metric-fill[data-level="2"] { width: 40%; }
+    .hub-cols { display: grid; gap: 1.2rem; }
+    @media (min-width:720px) { .hub-cols { grid-template-columns: 1.4fr 1fr; } }
+    .hub-col h4 { font-size: .88rem; font-weight: 800; color: var(--text); margin-bottom: .5rem; }
+    .hub-col p  { font-size: .85rem; color: var(--gray-600); margin-bottom: .5rem; }
+    .hub-col ul { padding-left: 1rem; }
+    .hub-col li { font-size: .85rem; color: var(--gray-600); margin-bottom: .35rem; }
+    .hl { font-weight: 800; color: var(--green-dark); }
+    .hub-tip { margin-top: 1.2rem; display: flex; align-items: flex-start; gap: .5rem; font-size: .78rem; color: var(--gray-600); background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--r-md); padding: .7rem .9rem; }
+    .compare-table { display: grid; gap: 0; }
+    @media (min-width:640px) { .compare-table { grid-template-columns: 1.1fr repeat(3,1fr); } }
+    .ct-head { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--gray-400); padding: .6rem .5rem; border-bottom: 2px solid var(--gray-200); }
+    .ct-label { font-size: .8rem; font-weight: 800; color: var(--gray-600); padding: .6rem .5rem; border-top: 1px solid var(--gray-200); }
+    .ct-cell { font-size: .82rem; color: var(--text); padding: .6rem .5rem; border-top: 1px solid var(--gray-200); }
+
+    /* ROLE CHART */
+    .role-chart { display: grid; gap: 1rem; margin-top: .5rem; }
+    .role-row-top { display: flex; justify-content: space-between; font-size: .82rem; margin-bottom: .3rem; }
+    .rname { font-weight: 700; color: var(--text); }
+    .rval  { color: var(--gray-600); }
+    .role-track { height: 10px; border-radius: 999px; background: var(--gray-200); overflow: hidden; }
+    .role-fill { height: 100%; border-radius: inherit; transform-origin: left; transform: scaleX(var(--pct,.5)); }
+    .role-fill.fe { background: linear-gradient(90deg,#e0e7ff,#6366f1); }
+    .role-fill.be { background: linear-gradient(90deg,#bbf7d0,#16a34a); }
+    .role-fill.de { background: linear-gradient(90deg,#fef9c3,#ca8a04); }
+    .role-legend-row { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 1rem; font-size: .76rem; color: var(--gray-600); }
+    .role-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: .3rem; }
+    .footnote { margin-top: 1.5rem; font-size: .78rem; color: var(--gray-400); font-style: italic; }
+
+    /* FOOTER */
+    .footer { background: linear-gradient(145deg,#02844a 0%,var(--green) 55%,#02c469 100%); padding: 4rem 1.5rem 5rem; }
+    .footer-inner { max-width: 780px; margin: 0 auto; text-align: center; }
+    .footer-badge { display: inline-flex; align-items: center; gap: .4rem; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.3); color: rgba(255,255,255,.95); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; padding: .38rem 1rem; border-radius: 999px; margin-bottom: 1.5rem; }
+    .footer-card { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.25); border-radius: var(--r-xl); padding: 2.5rem 2.8rem; backdrop-filter: blur(10px); margin-bottom: 2rem; }
+    @media (max-width:560px) { .footer-card { padding: 1.8rem 1.4rem; } }
+    .footer-title { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+    .footer-title span { font-style: italic; color: #c8ffd8; }
+    .footer-body { font-size: .95rem; color: rgba(255,255,255,.85); line-height: 1.65; max-width: 560px; margin: 0 auto 1.4rem; }
+    .footer-live { display: inline-flex; align-items: center; gap: .5rem; font-size: .85rem; font-weight: 700; color: rgba(255,255,255,.9); }
+    .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #c8ffd8; box-shadow: 0 0 0 3px rgba(200,255,216,.3); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px rgba(200,255,216,.3); } 50% { box-shadow: 0 0 0 6px rgba(200,255,216,.12); } }
+    .contacts { display: flex; flex-wrap: wrap; gap: .9rem; justify-content: center; }
+    .contact-btn { display: inline-flex; align-items: center; gap: .6rem; background: var(--white); border-radius: 999px; padding: .85rem 1.8rem; font-size: .88rem; font-weight: 800; color: var(--text); box-shadow: 0 6px 20px rgba(0,0,0,.12); cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+    .slack-logo { width: 20px; height: 20px; background: conic-gradient(#36C5F0 0deg 90deg,#2EB67D 90deg 180deg,#ECB22E 180deg 270deg,#E01E5A 270deg 360deg); border-radius: 4px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <svg viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#060f20"/>
+        <stop offset="45%"  stop-color="#0d2448"/>
+        <stop offset="100%" stop-color="#133470"/>
+      </linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#102e62" stop-opacity="0.8"/>
+        <stop offset="100%" stop-color="#071528"/>
+      </linearGradient>
+      <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c3a63"/><stop offset="100%" stop-color="#0c1e38"/></linearGradient>
+      <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#234070"/><stop offset="100%" stop-color="#112040"/></linearGradient>
+      <linearGradient id="b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#182e55"/><stop offset="100%" stop-color="#0a1a30"/></linearGradient>
+      <linearGradient id="gl" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#02A95C" stop-opacity="0"/>
+        <stop offset="30%"  stop-color="#02A95C" stop-opacity="0.7"/>
+        <stop offset="70%"  stop-color="#02A95C" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#02A95C" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <rect width="1440" height="400" fill="url(#sky)"/>
+    <!-- stars -->
+    <circle cx="60"  cy="35"  r="1.1" fill="white" opacity=".8"/><circle cx="180" cy="22"  r=".8"  fill="white" opacity=".6"/>
+    <circle cx="310" cy="50"  r="1.3" fill="white" opacity=".7"/><circle cx="470" cy="18"  r=".9"  fill="white" opacity=".5"/>
+    <circle cx="590" cy="42"  r="1.0" fill="white" opacity=".8"/><circle cx="740" cy="28"  r="1.2" fill="white" opacity=".6"/>
+    <circle cx="880" cy="14"  r=".8"  fill="white" opacity=".7"/><circle cx="1020" cy="47" r="1.1" fill="white" opacity=".5"/>
+    <circle cx="1160" cy="33" r=".9"  fill="white" opacity=".8"/><circle cx="1340" cy="20" r="1.3" fill="white" opacity=".6"/>
+    <circle cx="130" cy="68"  r=".6"  fill="white" opacity=".4"/><circle cx="420" cy="62"  r=".7"  fill="white" opacity=".5"/>
+    <circle cx="850" cy="65"  r=".6"  fill="white" opacity=".4"/><circle cx="1080" cy="72" r=".8"  fill="white" opacity=".5"/>
+    <!-- moon -->
+    <circle cx="1310" cy="58" r="24" fill="#fef8e1" opacity=".88"/>
+    <circle cx="1321" cy="51" r="19" fill="#0d2448" opacity=".96"/>
+    <!-- ambient glow -->
+    <ellipse cx="720" cy="295" rx="480" ry="65" fill="#02A95C" opacity=".05"/>
+    <!-- far bg buildings -->
+    <rect x="0"    y="248" width="16"  height="68"  fill="#0a1826" opacity=".7"/>
+    <rect x="18"   y="232" width="20"  height="84"  fill="#091624" opacity=".7"/>
+    <rect x="40"   y="244" width="14"  height="72"  fill="#0a1826" opacity=".7"/>
+    <rect x="56"   y="218" width="24"  height="98"  fill="#08141f" opacity=".8"/>
+    <rect x="82"   y="238" width="18"  height="78"  fill="#0a1826" opacity=".7"/>
+    <rect x="1300" y="235" width="18"  height="81"  fill="#0a1826" opacity=".7"/>
+    <rect x="1320" y="218" width="24"  height="98"  fill="#091624" opacity=".7"/>
+    <rect x="1346" y="230" width="16"  height="86"  fill="#0a1826" opacity=".7"/>
+    <rect x="1364" y="210" width="28"  height="106" fill="#08141f" opacity=".8"/>
+    <rect x="1394" y="232" width="20"  height="84"  fill="#0a1826" opacity=".7"/>
+    <!-- LEFT CLUSTER -->
+    <rect x="155" y="178" width="62" height="138" fill="url(#b1)" rx="2"/>
+    <rect x="159" y="170" width="54" height="12"  fill="#244272" rx="1"/>
+    <rect x="162" y="186" width="8" height="6" fill="#f5c84290" rx="1"/><rect x="174" y="186" width="8" height="6" fill="#7ec8f588" rx="1"/>
+    <rect x="186" y="186" width="8" height="6" fill="#f5c84280" rx="1"/><rect x="162" y="200" width="8" height="6" fill="#7ec8f580" rx="1"/>
+    <rect x="174" y="200" width="8" height="6" fill="#f5c84290" rx="1"/><rect x="186" y="200" width="8" height="6" fill="#f5c84275" rx="1"/>
+    <rect x="162" y="214" width="8" height="6" fill="#f5c84285" rx="1"/><rect x="174" y="214" width="8" height="6" fill="#7ec8f570" rx="1"/>
+    <rect x="186" y="214" width="8" height="6" fill="#f5c84295" rx="1"/><rect x="162" y="228" width="8" height="6" fill="#7ec8f580" rx="1"/>
+    <rect x="174" y="228" width="8" height="6" fill="#f5c84285" rx="1"/>
+    <rect x="222" y="198" width="44" height="118" fill="url(#b2)" rx="2"/>
+    <rect x="225" y="190" width="38" height="12"  fill="#2a4e7a" rx="1"/>
+    <rect x="228" y="206" width="6" height="5" fill="#f5c84288" rx="1"/><rect x="238" y="206" width="6" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="248" y="206" width="6" height="5" fill="#f5c84282" rx="1"/><rect x="228" y="218" width="6" height="5" fill="#7ec8f575" rx="1"/>
+    <rect x="238" y="218" width="6" height="5" fill="#f5c84290" rx="1"/><rect x="228" y="230" width="6" height="5" fill="#f5c84285" rx="1"/>
+    <!-- TALL TOWER LEFT -->
+    <rect x="330" y="130" width="40" height="186" fill="url(#b3)" rx="2"/>
+    <rect x="333" y="120" width="34" height="14"  fill="#1e3870" rx="1"/>
+    <rect x="349" y="96"  width="3"  height="34"  fill="#2a4878"/>
+    <circle cx="350" cy="95" r="4" fill="#02A95C" opacity=".95" filter="url(#glow)"/>
+    <rect x="335" y="138" width="6" height="5" fill="#f5c84290" rx="1"/><rect x="345" y="138" width="6" height="5" fill="#7ec8f580" rx="1"/>
+    <rect x="355" y="138" width="6" height="5" fill="#f5c84285" rx="1"/><rect x="335" y="150" width="6" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="345" y="150" width="6" height="5" fill="#f5c84292" rx="1"/><rect x="335" y="162" width="6" height="5" fill="#f5c84288" rx="1"/>
+    <rect x="345" y="162" width="6" height="5" fill="#7ec8f582" rx="1"/><rect x="355" y="162" width="6" height="5" fill="#f5c84270" rx="1"/>
+    <rect x="335" y="174" width="6" height="5" fill="#7ec8f575" rx="1"/><rect x="345" y="174" width="6" height="5" fill="#f5c84285" rx="1"/>
+    <rect x="335" y="186" width="6" height="5" fill="#f5c84290" rx="1"/><rect x="345" y="186" width="6" height="5" fill="#7ec8f572" rx="1"/>
+    <rect x="374" y="205" width="36" height="111" fill="url(#b1)" rx="2"/>
+    <rect x="377" y="197" width="30" height="12"  fill="#244272" rx="1"/>
+    <rect x="379" y="213" width="5" height="5" fill="#f5c84285" rx="1"/><rect x="388" y="213" width="5" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="379" y="225" width="5" height="5" fill="#7ec8f582" rx="1"/><rect x="388" y="225" width="5" height="5" fill="#f5c84290" rx="1"/>
+    <rect x="415" y="185" width="52" height="131" fill="url(#b2)" rx="2"/>
+    <rect x="418" y="175" width="46" height="14"  fill="#2a4e7a" rx="1"/>
+    <rect x="420" y="193" width="7" height="6" fill="#f5c84285" rx="1"/><rect x="431" y="193" width="7" height="6" fill="#7ec8f578" rx="1"/>
+    <rect x="442" y="193" width="7" height="6" fill="#f5c84290" rx="1"/><rect x="453" y="193" width="7" height="6" fill="#7ec8f570" rx="1"/>
+    <rect x="420" y="207" width="7" height="6" fill="#7ec8f580" rx="1"/><rect x="431" y="207" width="7" height="6" fill="#f5c84285" rx="1"/>
+    <rect x="442" y="207" width="7" height="6" fill="#f5c84275" rx="1"/><rect x="420" y="221" width="7" height="6" fill="#f5c84292" rx="1"/>
+    <!-- PUENTE DE LA MUJER -->
+    <path d="M 510 305 Q 545 228 580 305" stroke="#8aabbf" stroke-width="1.8" fill="none" opacity=".45"/>
+    <line x1="545" y1="228" x2="514" y2="305" stroke="#6d8fa8" stroke-width="1.2" opacity=".35"/>
+    <line x1="545" y1="228" x2="576" y2="305" stroke="#6d8fa8" stroke-width="1.2" opacity=".35"/>
+    <line x1="545" y1="228" x2="526" y2="305" stroke="#6d8fa8" stroke-width=".8" opacity=".28"/>
+    <line x1="545" y1="228" x2="537" y2="305" stroke="#6d8fa8" stroke-width=".8" opacity=".28"/>
+    <line x1="545" y1="228" x2="553" y2="305" stroke="#6d8fa8" stroke-width=".8" opacity=".28"/>
+    <line x1="545" y1="228" x2="564" y2="305" stroke="#6d8fa8" stroke-width=".8" opacity=".28"/>
+    <!-- OBELISCO -->
+    <rect x="697" y="88"  width="14" height="222" fill="#1d3d68" rx="1"/>
+    <polygon points="697,88 711,88 704,65" fill="#26497a"/>
+    <rect x="690" y="282" width="28" height="28" fill="#183254" rx="1"/>
+    <!-- CENTER BUILDINGS -->
+    <rect x="558" y="168" width="56" height="148" fill="url(#b2)" rx="2"/>
+    <rect x="561" y="158" width="50" height="14"  fill="#2a4e7a" rx="1"/>
+    <rect x="563" y="176" width="8" height="6" fill="#f5c84285" rx="1"/><rect x="575" y="176" width="8" height="6" fill="#7ec8f578" rx="1"/>
+    <rect x="587" y="176" width="8" height="6" fill="#f5c84290" rx="1"/><rect x="599" y="176" width="8" height="6" fill="#7ec8f575" rx="1"/>
+    <rect x="563" y="190" width="8" height="6" fill="#7ec8f582" rx="1"/><rect x="575" y="190" width="8" height="6" fill="#f5c84278" rx="1"/>
+    <rect x="587" y="190" width="8" height="6" fill="#f5c84285" rx="1"/><rect x="563" y="204" width="8" height="6" fill="#f5c84290" rx="1"/>
+    <rect x="575" y="204" width="8" height="6" fill="#7ec8f580" rx="1"/><rect x="587" y="204" width="8" height="6" fill="#f5c84270" rx="1"/>
+    <rect x="619" y="188" width="42" height="128" fill="url(#b1)" rx="2"/>
+    <rect x="622" y="178" width="36" height="14"  fill="#244272" rx="1"/>
+    <rect x="624" y="196" width="6" height="5" fill="#f5c84285" rx="1"/><rect x="634" y="196" width="6" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="644" y="196" width="6" height="5" fill="#f5c84290" rx="1"/><rect x="624" y="208" width="6" height="5" fill="#7ec8f580" rx="1"/>
+    <rect x="634" y="208" width="6" height="5" fill="#f5c84282" rx="1"/><rect x="624" y="220" width="6" height="5" fill="#f5c84288" rx="1"/>
+    <rect x="634" y="220" width="6" height="5" fill="#7ec8f575" rx="1"/>
+    <rect x="718" y="172" width="52" height="144" fill="url(#b2)" rx="2"/>
+    <rect x="721" y="162" width="46" height="14"  fill="#2a4e7a" rx="1"/>
+    <rect x="723" y="180" width="7" height="6" fill="#f5c84290" rx="1"/><rect x="734" y="180" width="7" height="6" fill="#7ec8f578" rx="1"/>
+    <rect x="745" y="180" width="7" height="6" fill="#f5c84282" rx="1"/><rect x="756" y="180" width="7" height="6" fill="#7ec8f575" rx="1"/>
+    <rect x="723" y="194" width="7" height="6" fill="#7ec8f585" rx="1"/><rect x="734" y="194" width="7" height="6" fill="#f5c84278" rx="1"/>
+    <rect x="723" y="208" width="7" height="6" fill="#f5c84285" rx="1"/><rect x="734" y="208" width="7" height="6" fill="#7ec8f580" rx="1"/>
+    <rect x="745" y="208" width="7" height="6" fill="#f5c84272" rx="1"/>
+    <rect x="775" y="192" width="40" height="124" fill="url(#b3)" rx="2"/>
+    <rect x="778" y="182" width="34" height="14"  fill="#1e3870" rx="1"/>
+    <rect x="780" y="200" width="6" height="5" fill="#f5c84285" rx="1"/><rect x="790" y="200" width="6" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="780" y="212" width="6" height="5" fill="#7ec8f582" rx="1"/><rect x="790" y="212" width="6" height="5" fill="#f5c84288" rx="1"/>
+    <!-- RIGHT CLUSTER -->
+    <rect x="862" y="182" width="56" height="134" fill="url(#b1)" rx="2"/>
+    <rect x="865" y="172" width="50" height="14"  fill="#244272" rx="1"/>
+    <rect x="867" y="190" width="8" height="6" fill="#f5c84288" rx="1"/><rect x="879" y="190" width="8" height="6" fill="#7ec8f578" rx="1"/>
+    <rect x="891" y="190" width="8" height="6" fill="#f5c84285" rx="1"/><rect x="867" y="204" width="8" height="6" fill="#7ec8f580" rx="1"/>
+    <rect x="879" y="204" width="8" height="6" fill="#f5c84282" rx="1"/><rect x="891" y="204" width="8" height="6" fill="#f5c84275" rx="1"/>
+    <rect x="867" y="218" width="8" height="6" fill="#f5c84290" rx="1"/><rect x="879" y="218" width="8" height="6" fill="#7ec8f570" rx="1"/>
+    <rect x="891" y="218" width="8" height="6" fill="#f5c84278" rx="1"/>
+    <!-- TALL TOWER RIGHT -->
+    <rect x="1008" y="145" width="40" height="171" fill="url(#b3)" rx="2"/>
+    <rect x="1011" y="135" width="34" height="14"  fill="#1e3870" rx="1"/>
+    <rect x="1027" y="110" width="3"  height="34"  fill="#2a4878"/>
+    <circle cx="1028" cy="109" r="4" fill="#02A95C" opacity=".95" filter="url(#glow)"/>
+    <rect x="1013" y="153" width="6" height="5" fill="#f5c84290" rx="1"/><rect x="1023" y="153" width="6" height="5" fill="#7ec8f580" rx="1"/>
+    <rect x="1013" y="165" width="6" height="5" fill="#7ec8f578" rx="1"/><rect x="1023" y="165" width="6" height="5" fill="#f5c84290" rx="1"/>
+    <rect x="1013" y="177" width="6" height="5" fill="#f5c84285" rx="1"/><rect x="1023" y="177" width="6" height="5" fill="#7ec8f575" rx="1"/>
+    <rect x="1013" y="189" width="6" height="5" fill="#7ec8f582" rx="1"/><rect x="1023" y="189" width="6" height="5" fill="#f5c84288" rx="1"/>
+    <rect x="1052" y="200" width="42" height="116" fill="url(#b2)" rx="2"/>
+    <rect x="1055" y="190" width="36" height="14"  fill="#2a4e7a" rx="1"/>
+    <rect x="1057" y="208" width="6" height="5" fill="#f5c84285" rx="1"/><rect x="1067" y="208" width="6" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="1077" y="208" width="6" height="5" fill="#f5c84290" rx="1"/><rect x="1057" y="220" width="6" height="5" fill="#7ec8f575" rx="1"/>
+    <rect x="1067" y="220" width="6" height="5" fill="#f5c84282" rx="1"/>
+    <rect x="1100" y="175" width="58" height="141" fill="url(#b1)" rx="2"/>
+    <rect x="1103" y="165" width="52" height="14"  fill="#244272" rx="1"/>
+    <rect x="1105" y="183" width="8" height="6" fill="#f5c84285" rx="1"/><rect x="1117" y="183" width="8" height="6" fill="#7ec8f578" rx="1"/>
+    <rect x="1129" y="183" width="8" height="6" fill="#f5c84292" rx="1"/><rect x="1141" y="183" width="8" height="6" fill="#7ec8f572" rx="1"/>
+    <rect x="1105" y="197" width="8" height="6" fill="#7ec8f582" rx="1"/><rect x="1117" y="197" width="8" height="6" fill="#f5c84278" rx="1"/>
+    <rect x="1129" y="197" width="8" height="6" fill="#f5c84285" rx="1"/><rect x="1105" y="211" width="8" height="6" fill="#f5c84290" rx="1"/>
+    <rect x="1117" y="211" width="8" height="6" fill="#7ec8f580" rx="1"/><rect x="1129" y="211" width="8" height="6" fill="#f5c84272" rx="1"/>
+    <rect x="1165" y="200" width="38" height="116" fill="url(#b3)" rx="2"/>
+    <rect x="1168" y="190" width="32" height="14"  fill="#1e3870" rx="1"/>
+    <rect x="1170" y="208" width="6" height="5" fill="#f5c84285" rx="1"/><rect x="1180" y="208" width="6" height="5" fill="#7ec8f578" rx="1"/>
+    <rect x="1170" y="220" width="6" height="5" fill="#7ec8f582" rx="1"/><rect x="1180" y="220" width="6" height="5" fill="#f5c84285" rx="1"/>
+    <rect x="1210" y="185" width="50" height="131" fill="url(#b2)" rx="2"/>
+    <rect x="1213" y="175" width="44" height="14"  fill="#2a4e7a" rx="1"/>
+    <rect x="1215" y="193" width="7" height="6" fill="#f5c84285" rx="1"/><rect x="1226" y="193" width="7" height="6" fill="#7ec8f578" rx="1"/>
+    <rect x="1237" y="193" width="7" height="6" fill="#f5c84290" rx="1"/><rect x="1215" y="207" width="7" height="6" fill="#7ec8f580" rx="1"/>
+    <rect x="1226" y="207" width="7" height="6" fill="#f5c84278" rx="1"/><rect x="1215" y="221" width="7" height="6" fill="#f5c84290" rx="1"/>
+    <!-- GROUND & WATER -->
+    <rect x="0" y="308" width="1440" height="5" fill="#040d1a"/>
+    <rect x="0" y="307" width="1440" height="3" fill="url(#gl)" opacity=".9"/>
+    <rect x="0" y="313" width="1440" height="87" fill="url(#water)"/>
+    <line x1="80"  y1="330" x2="280"  y2="330" stroke="white" stroke-width=".6" opacity=".12"/>
+    <line x1="380" y1="344" x2="620"  y2="344" stroke="white" stroke-width=".5" opacity=".1"/>
+    <line x1="700" y1="336" x2="920"  y2="336" stroke="white" stroke-width=".6" opacity=".11"/>
+    <line x1="980" y1="350" x2="1180" y2="350" stroke="white" stroke-width=".5" opacity=".1"/>
+    <ellipse cx="350"  cy="342" rx="10" ry="3" fill="#f5c842" opacity=".1"/>
+    <ellipse cx="704"  cy="338" rx="7"  ry="2" fill="#02A95C" opacity=".13"/>
+    <ellipse cx="880"  cy="345" rx="9"  ry="3" fill="#f5c842" opacity=".09"/>
+    <ellipse cx="1220" cy="342" rx="10" ry="3" fill="#f5c842" opacity=".08"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-chip">🇦🇷 Buenos Aires Hub</div>
+    <h1 class="hero-title">Hiring in <em>Buenos Aires</em></h1>
+    <p class="hero-sub">Your complete guide to the Argentine tech talent market</p>
+  </div>
+  <div class="hero-bar">
+    <p>Everything you need to know about hiring for technical roles in Buenos Aires</p>
+  </div>
+</div>
+
+<!-- INDEX -->
+<div class="index-section">
+  <div class="index-inner">
+    <div class="index-group">
+      <div class="index-group-label">Argentina overview</div>
+      <div class="index-group-title">Market, hubs and universities</div>
+      <div class="card-grid">
+        <a href="#main-hubs" class="nav-card"><div class="nav-card-tag">Geography</div><div class="nav-card-title">Main hubs in Argentina</div><div class="nav-card-desc">Key tech cities and how talent is distributed across the country.</div><div class="nav-card-arrow">→</div></a>
+        <a href="#talent"    class="nav-card"><div class="nav-card-tag">Talent</div><div class="nav-card-title">Talent availability</div><div class="nav-card-desc">Volume, role mix and where senior engineering profiles are easier to find.</div><div class="nav-card-arrow">→</div></a>
+        <a href="#universities" class="nav-card"><div class="nav-card-tag">Education</div><div class="nav-card-title">Universities</div><div class="nav-card-desc">Top institutions feeding the tech ecosystem with engineering graduates.</div><div class="nav-card-arrow">→</div></a>
+      </div>
+    </div>
+    <div class="index-group">
+      <div class="index-group-label">Operating model</div>
+      <div class="index-group-title">Compensation, hiring and culture</div>
+      <div class="card-grid">
+        <a href="#compensation" class="nav-card"><div class="nav-card-tag">Compensation</div><div class="nav-card-title">Compensation</div><div class="nav-card-desc">Salary structure, Aguinaldo, deductions and contractor vs. full-time models.</div><div class="nav-card-arrow">→</div></a>
+        <a href="#hiring"       class="nav-card"><div class="nav-card-tag">Strategy</div><div class="nav-card-title">Hiring strategies</div><div class="nav-card-desc">How to combine hubs, seniority and contract types to reach your goals.</div><div class="nav-card-arrow">→</div></a>
+        <a href="#culture"      class="nav-card"><div class="nav-card-tag">Culture</div><div class="nav-card-title">Cultural context</div><div class="nav-card-desc">Work style, communication norms and collaboration expectations.</div><div class="nav-card-arrow">→</div></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. MAIN HUBS -->
+<section id="main-hubs" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">📍 Geography</div>
+    <h2 class="section-heading">Main hubs in Argentina</h2>
+    <p class="section-lead">Explore the main Argentine cities for software & data talent. Select a hub to see its profile or compare them side by side.</p>
+    <div class="hub-shell">
+      <div class="hub-shell-label">Choose a hub to explore</div>
+      <div class="hub-tab-bar">
+        <button class="hub-tab-btn active" data-hub="ba">🏙️ Buenos Aires</button>
+        <button class="hub-tab-btn" data-hub="cor">⛰️ Córdoba</button>
+        <button class="hub-tab-btn" data-hub="men">🍷 Mendoza</button>
+        <button class="hub-tab-btn" data-hub="cmp">📊 Compare hubs</button>
+      </div>
+      <div class="hub-panel active" id="hub-ba">
+        <div class="hub-detail-box">
+          <div class="hub-header">
+            <div><div class="hub-name">🏙️ Buenos Aires</div><div class="hub-sub">Argentina's largest and most established tech hub.</div></div>
+            <div class="pill-row"><span class="pill accent">Maturity: High</span><span class="pill good">Best for: Senior & leads</span><span class="pill">Near-shore, global teams</span></div>
+          </div>
+          <div class="metrics-row">
+            <div class="metric-tile"><div class="metric-top"><span>Talent volume</span><strong>Very high</strong></div><div class="metric-track"><div class="metric-fill" data-level="5"></div></div></div>
+            <div class="metric-tile"><div class="metric-top"><span>Cost level</span><strong>Higher</strong></div><div class="metric-track"><div class="metric-fill" data-level="4"></div></div></div>
+            <div class="metric-tile"><div class="metric-top"><span>Infra & connectivity</span><strong>Excellent</strong></div><div class="metric-track"><div class="metric-fill" data-level="5"></div></div></div>
+          </div>
+          <div class="hub-cols">
+            <div class="hub-col">
+              <h4>Why Buenos Aires?</h4><p>Go here if you want the deepest pool of experienced developers and data engineers.</p>
+              <ul><li>Around <span class="hl">85% of Argentinian developers</span> are based here.</li><li><span class="hl">Strong ecosystem</span>: startups, scale-ups and established tech companies.</li><li>Good <span class="hl">English proficiency</span> and near-shore time zone for US/EU teams.</li><li>Excellent <span class="hl">remote-work infrastructure</span> and connectivity.</li><li><span class="hl">Favourable cost–quality ratio</span> for engineering talent.</li></ul>
+            </div>
+            <div class="hub-col">
+              <h4>Best use cases</h4>
+              <ul><li>Senior data engineers and technical leads.</li><li>People coordinating <span class="hl">international / distributed teams</span>.</li><li>Situations where <span class="hl">slightly higher salary expectations</span> are acceptable.</li></ul>
+            </div>
+          </div>
+          <div class="hub-tip">💡 Think of Buenos Aires as your "default hub" when quality and depth matter most.</div>
+        </div>
+      </div>
+      <div class="hub-panel" id="hub-cor">
+        <div class="hub-detail-box">
+          <div class="hub-header">
+            <div><div class="hub-name">⛰️ Córdoba</div><div class="hub-sub">Argentina's "Silicon Valley" and second-largest tech hub.</div></div>
+            <div class="pill-row"><span class="pill accent">Maturity: Medium–High</span><span class="pill good">Best for: Mid–senior devs</span><span class="pill">Lower cost vs BA</span></div>
+          </div>
+          <div class="metrics-row">
+            <div class="metric-tile"><div class="metric-top"><span>Talent volume</span><strong>High</strong></div><div class="metric-track"><div class="metric-fill" data-level="4"></div></div></div>
+            <div class="metric-tile"><div class="metric-top"><span>Cost level</span><strong>Lower</strong></div><div class="metric-track"><div class="metric-fill" data-level="3"></div></div></div>
+            <div class="metric-tile"><div class="metric-top"><span>Export orientation</span><strong>Strong</strong></div><div class="metric-track"><div class="metric-fill" data-level="4"></div></div></div>
+          </div>
+          <div class="hub-cols">
+            <div class="hub-col"><h4>Why Córdoba?</h4><ul><li>Described as the country's <span class="hl">second-largest tech hub</span>.</li><li><span class="hl">Strong academic base</span>: engineering & IT graduates continuously fueling talent.</li><li>Responsible for <span class="hl">30–40% of Argentine software exports</span>.</li><li>Similar time zone, but <span class="hl">lower cost than the capital</span>.</li></ul></div>
+            <div class="hub-col"><h4>Best use cases</h4><ul><li>Very good <span class="hl">mid–senior engineers</span> at lower rates.</li><li>Long-term near-shore teams where cost vs quality matters.</li></ul></div>
+          </div>
+          <div class="hub-tip">💡 Think of Córdoba as your "smart value" choice for strong, export-oriented talent.</div>
+        </div>
+      </div>
+      <div class="hub-panel" id="hub-men">
+        <div class="hub-detail-box">
+          <div class="hub-header">
+            <div><div class="hub-name">🍷 Mendoza</div><div class="hub-sub">An emerging, cost-efficient tech hub with growing capabilities.</div></div>
+            <div class="pill-row"><span class="pill accent">Maturity: Emerging</span><span class="pill good">Best for: Secondary hub</span><span class="pill warn">Smaller talent pool</span></div>
+          </div>
+          <div class="metrics-row">
+            <div class="metric-tile"><div class="metric-top"><span>Talent volume</span><strong>Moderate</strong></div><div class="metric-track"><div class="metric-fill" data-level="3"></div></div></div>
+            <div class="metric-tile"><div class="metric-top"><span>Cost level</span><strong>Lower</strong></div><div class="metric-track"><div class="metric-fill" data-level="2"></div></div></div>
+            <div class="metric-tile"><div class="metric-top"><span>Niche tech avail.</span><strong>More limited</strong></div><div class="metric-track"><div class="metric-fill" data-level="2"></div></div></div>
+          </div>
+          <div class="hub-cols">
+            <div class="hub-col"><h4>Why Mendoza?</h4><ul><li>An <span class="hl">emerging tech hub</span>, smaller than BA or Córdoba.</li><li>Attractive from a <span class="hl">cost and talent-supply</span> perspective.</li><li>Some <span class="hl">specialisation in software & data analysis</span>.</li></ul></div>
+            <div class="hub-col"><h4>Best use cases</h4><ul><li>Secondary hub in a multi-city hiring strategy.</li><li>Teams where <span class="hl">cost and stability</span> matter more than niche stacks.</li><li>Generalist engineers & analysts with solid fundamentals.</li></ul></div>
+          </div>
+          <div class="hub-tip">💡 Think of Mendoza as a strategic "secondary hub" with attractive cost and growing talent.</div>
+        </div>
+      </div>
+      <div class="hub-panel" id="hub-cmp">
+        <div class="hub-detail-box">
+          <div class="compare-table">
+            <div class="ct-head"></div><div class="ct-head">Buenos Aires</div><div class="ct-head">Córdoba</div><div class="ct-head">Mendoza</div>
+            <div class="ct-label">Maturity</div><div class="ct-cell" style="font-weight:700">High</div><div class="ct-cell" style="font-weight:700">Medium–High</div><div class="ct-cell" style="font-weight:700">Emerging</div>
+            <div class="ct-label">Talent volume</div><div class="ct-cell">Very deep pool, incl. senior data roles.</div><div class="ct-cell">High, strong engineering base.</div><div class="ct-cell">Moderate, more generalist.</div>
+            <div class="ct-label">Cost level</div><div class="ct-cell">Higher vs other hubs.</div><div class="ct-cell">Lower than BA.</div><div class="ct-cell">Lowest, with trade-offs.</div>
+            <div class="ct-label">Best for</div><div class="ct-cell">Senior & leadership roles.</div><div class="ct-cell">Mid–senior devs, value-for-money.</div><div class="ct-cell">Secondary hub, generalist roles.</div>
+            <div class="ct-label">Watch-outs</div><div class="ct-cell">Higher salaries & competition.</div><div class="ct-cell">Smaller than BA, still busy.</div><div class="ct-cell">Smaller pool, limited niche stacks.</div>
+          </div>
+          <div class="hub-tip">💡 Use this view to decide whether to concentrate hiring in one hub or split across multiple cities.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TALENT -->
+<section id="talent" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">👥 Talent</div>
+    <h2 class="section-heading">Talent Market Overview</h2>
+    <p class="section-lead">Quick view of talent composition and role mix strengths in the Buenos Aires hub.</p>
+    <div class="white-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1.4rem;">
+        <div><div style="font-size:1rem;font-weight:800;margin-bottom:.2rem;">Role mix in Buenos Aires</div><div style="font-size:.84rem;color:var(--gray-600);">Relative volume of engineering roles in the talent pool.</div></div>
+        <span style="font-size:.72rem;font-weight:700;background:var(--green-soft);color:var(--green-dark);border:1.5px solid var(--green-mid);border-radius:999px;padding:.3rem .85rem;">Remote & near-shore context</span>
+      </div>
+      <div class="role-legend-row">
+        <span><span class="role-dot" style="background:#6366f1"></span>Frontend</span>
+        <span><span class="role-dot" style="background:#16a34a"></span>Backend / Full-stack</span>
+        <span><span class="role-dot" style="background:#ca8a04"></span>Data engineering</span>
+      </div>
+      <div class="role-chart">
+        <div><div class="role-row-top"><span class="rname">Frontend engineers</span><span class="rval">~5k–10k</span></div><div class="role-track"><div class="role-fill fe" style="--pct:.4"></div></div></div>
+        <div><div class="role-row-top"><span class="rname">Backend / Full-stack engineers</span><span class="rval">~60k–90k</span></div><div class="role-track"><div class="role-fill be" style="--pct:1"></div></div></div>
+        <div><div class="role-row-top"><span class="rname">Data engineering roles</span><span class="rval">~5k–10k (&lt;10% of pool)</span></div><div class="role-track"><div class="role-fill de" style="--pct:.35"></div></div></div>
+      </div>
+      <div class="footnote">Bars show relative scale, not exact headcount figures.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. UNIVERSITIES -->
+<section id="universities" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">🎓 Education</div>
+    <h2 class="section-heading">Education context &amp; top universities</h2>
+    <p class="section-lead">Understand how Argentina's higher education system works and which universities matter most for engineering, software, and data roles.</p>
+    <div class="tab-bar" id="uni-nav">
+      <button class="tab-btn active" data-tab="uni-ctx">Education context</button>
+      <button class="tab-btn" data-tab="uni-uni">Top universities</button>
+    </div>
+    <div class="tab-panel active" id="uni-ctx">
+      <div class="two-col">
+        <div class="info-card"><div class="info-card-title">🏛️ System structure</div><ul><li>Programs typically last <strong>6 years</strong>, with early specialisation.</li><li>Public universities are <strong>tuition-free</strong> and highly prestigious.</li><li>Private institutions charge lower fees vs. global peers.</li><li>Admission often open; evaluated through entry exams.</li></ul></div>
+        <div class="info-card"><div class="info-card-title">🎒 Student experience</div><ul><li>Most students live at home and <strong>commute</strong> to class.</li><li><strong>Combining work and study</strong> is very common.</li><li>Education model is urban and independent.</li></ul></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="uni-uni">
+      <div class="info-card"><div class="info-card-title">🏆 Top Technical Universities</div><ul><li><strong>University of Buenos Aires (UBA)</strong> – Faculty of Engineering / FCEyN</li><li><strong>Universidad Tecnológica Nacional (UTN)</strong> – Buenos Aires Campus</li><li><strong>Instituto Tecnológico de Buenos Aires (ITBA)</strong></li><li><strong>Universidad Torcuato Di Tella (UTDT)</strong></li><li><strong>Universidad Nacional de Tres de Febrero (UNTREF)</strong></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. COMPENSATION -->
+<section id="compensation" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">💰 Compensation</div>
+    <h2 class="section-heading">Employment &amp; compensation framework</h2>
+    <p class="section-lead">How full-time contracts, contractor setups and macroeconomic context shape compensation for technical talent in Argentina.</p>
+    <div class="tab-bar" id="comp-nav">
+      <button class="tab-btn active" data-tab="comp-1">Employment Model</button>
+      <button class="tab-btn" data-tab="comp-2">Contractors</button>
+      <button class="tab-btn" data-tab="comp-3">Talent Insights</button>
+      <button class="tab-btn" data-tab="comp-4">Macroeconomics</button>
+    </div>
+    <div class="tab-panel active" id="comp-1"><div class="two-col"><div class="info-card"><div class="info-card-title">📄 Core characteristics</div><ul><li>Employees engaged under formal, full-time contracts.</li><li>Includes labor protections, health insurance and retirement contributions.</li><li>Payroll automatically applies all statutory deductions.</li></ul></div><div class="info-card"><div class="info-card-title">🎁 Bonus & deductions</div><ul><li>Includes <strong>13th-month bonus ("Aguinaldo")</strong> paid in June and December.</li><li>Typical deductions range between <strong>25–35%</strong>.</li><li>Covers health insurance, retirement, income tax and Law 19032.</li></ul></div></div></div>
+    <div class="tab-panel" id="comp-2"><div class="two-col"><div class="info-card"><div class="info-card-title">🔄 Market practices</div><ul><li>Contractors face fewer deductions and often earn <strong>higher net pay</strong>.</li><li>Flexibility to invoice in <strong>foreign currencies</strong>.</li><li>Common in startups and export-oriented companies.</li></ul></div><div class="info-card"><div class="info-card-title">✨ Typical benefits</div><ul><li>Unlimited PTO and private healthcare often included.</li><li>Stock options or performance bonuses in senior roles.</li></ul></div></div></div>
+    <div class="tab-panel" id="comp-3"><div class="two-col"><div class="info-card"><div class="info-card-title">🎯 Talent segment</div><ul><li>Senior engineers prefer <strong>contractor structures</strong>.</li><li>They benchmark against remote/near-shore markets.</li><li>Salary data often underestimates their real expectations.</li></ul></div><div class="info-card"><div class="info-card-title">📊 Interpreting data</div><ul><li>Public salary reports <strong>exclude contracting rates</strong>.</li><li>Real expectations higher due to USD-linked payments.</li><li>Strong English and international experience add premium value.</li></ul></div></div></div>
+    <div class="tab-panel" id="comp-4"><div class="two-col"><div class="info-card"><div class="info-card-title">📈 Key indicators</div><ul><li>Argentina has <strong>high inflation</strong> in ARS and USD.</li><li>New taxable salary components since 2024.</li><li>Increasing deductions for registered employees.</li></ul></div><div class="info-card"><div class="info-card-title">💼 Impact on offers</div><ul><li>Talent prioritises <strong>net income and contract type</strong>.</li><li>Contractor roles mitigate inflation impact.</li><li>Offers must account for currency exposure and volatility.</li></ul></div></div></div>
+  </div>
+</section>
+
+<!-- 5. HIRING STRATEGIES -->
+<section id="hiring" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">🎯 Strategy</div>
+    <h2 class="section-heading">Market context &amp; hiring strategies</h2>
+    <p class="section-lead">Overview of Argentina's tech hiring landscape and effective strategies to attract and retain senior technical talent.</p>
+    <div class="tab-bar" id="hiring-nav">
+      <button class="tab-btn active" data-tab="hiring-ctx">Market context</button>
+      <button class="tab-btn" data-tab="hiring-strat">Hiring strategies</button>
+    </div>
+    <div class="tab-panel active" id="hiring-ctx"><div class="info-card"><div class="info-card-title">🌎 Market context</div><ul><li>Argentina has a <strong>strong pool</strong> of skilled developers with good English and cultural alignment.</li><li>Demand is very high — <strong>competition for senior talent is intense</strong>.</li><li>Few inbound applicants — most hires come from <strong>proactive sourcing and referrals</strong>.</li></ul></div></div>
+    <div class="tab-panel" id="hiring-strat"><div class="two-col"><div class="info-card"><div class="info-card-title">📣 Employer brand & sourcing</div><ul><li><strong>Employer brand:</strong> Highlight product-company work, growth, stability and transparency.</li><li><strong>Targeted sourcing:</strong> LinkedIn, local networks, referrals and university ties.</li></ul></div><div class="info-card"><div class="info-card-title">🤝 Process & retention</div><ul><li><strong>Clear, competitive offers:</strong> USD-based pay, inflation adjustments, non-monetary benefits.</li><li><strong>Efficient process:</strong> Concise technical interviews; timely feedback matters.</li><li><strong>Retention focus:</strong> Mentorship, career paths and regular check-ins.</li></ul></div></div></div>
+  </div>
+</section>
+
+<!-- 6. CULTURE -->
+<section id="culture" class="section">
+  <div class="section-inner">
+    <div class="section-eyebrow">🤝 Culture</div>
+    <h2 class="section-heading">Cultural context</h2>
+    <p class="section-lead">Work style, communication norms and expectations when collaborating with Argentine teams.</p>
+    <div class="two-col">
+      <div class="info-card"><div class="info-card-title">💬 Communication style</div><ul><li>Argentine professionals <strong>avoid confrontation</strong> — proactive clarification reduces misalignment.</li><li>Informal, personable tone builds trust; <strong>warmth and conversation go a long way</strong>.</li><li>Top developers are often employed and <strong>reluctant to engage in long interview processes</strong>.</li></ul></div>
+      <div class="info-card"><div class="info-card-title">⚖️ Work & career priorities</div><ul><li><strong>Work-life balance, autonomy and flexibility</strong> are top priorities, even for senior talent.</li><li>The market is agency-driven; some lack experience in <strong>product-focused environments</strong>.</li><li>Product-company positioning resonates strongly with top engineers.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-badge">🇦🇷 Argentina Talent Team</div>
+    <div class="footer-card">
+      <div class="footer-title">Thanks for making it this far —<br><span>we've got you!</span></div>
+      <p class="footer-body">The Argentina Talent team is here to help with anything you need — from understanding the market to exploring hiring opportunities. Feel free to reach out directly to any of us below — we'd love to connect!</p>
+      <div class="footer-live"><span class="live-dot"></span> Always happy to help — see you in Slack!</div>
+    </div>
+    <div class="contacts">
+      <div class="contact-btn"><div class="slack-logo"></div> Kabi Gishuru – Director Talent Acquisition</div>
+      <div class="contact-btn"><div class="slack-logo"></div> Caro Diz Rodriguez – Lead Tech Recruiter</div>
+      <div class="contact-btn"><div class="slack-logo"></div> Aman Sheena – Senior Manager, Talent</div>
+      <div class="contact-btn"><div class="slack-logo"></div> Malena Pham – Recruiting Coordinator</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Hub tabs
+  const hubBtns = document.querySelectorAll('.hub-tab-btn');
+  const hubMap = { ba:'hub-ba', cor:'hub-cor', men:'hub-men', cmp:'hub-cmp' };
+  hubBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.hub;
+      hubBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(hubMap).forEach(id => document.getElementById(id).classList.remove('active'));
+      document.getElementById(hubMap[key]).classList.add('active');
+    });
+  });
+  // Generic tab groups
+  function initTabs(navId, prefix) {
+    const nav = document.getElementById(navId);
+    if (!nav) return;
+    nav.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        nav.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const t = btn.dataset.tab;
+        document.querySelectorAll(`[id^="${prefix}"]`).forEach(p => p.classList.toggle('active', p.id === t));
+      });
+    });
+  }
+  initTabs('uni-nav',    'uni-');
+  initTabs('comp-nav',   'comp-');
+  initTabs('hiring-nav', 'hiring-');
+</script>
+</body>
+</html>
